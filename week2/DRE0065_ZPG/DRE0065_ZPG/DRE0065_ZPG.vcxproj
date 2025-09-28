@@ -19,7 +19,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderProgram.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="DrawableObject.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderProgram.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="square_fragment_shader.glsl" />
+    <None Include="triangle_fragment_shader.glsl" />
+    <None Include="vertex_shader.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

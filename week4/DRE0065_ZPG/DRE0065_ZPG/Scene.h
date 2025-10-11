@@ -14,6 +14,7 @@
 #include "Rotation.h"
 #include "Translation.h"
 #include "Scale.h"
+#include "Camera.h"
 
 using namespace glm;
 using namespace std;
@@ -25,6 +26,7 @@ class Scene
         ~Scene();
         void draw();
         void setScene(int id);
+        void updateCamera(GLFWwindow* window, float deltaTime, double xpos, double ypos, bool rightPressed);
         
     private:
         Model* triangleModel = nullptr;
@@ -34,6 +36,10 @@ class Scene
         Model* sphereModel = nullptr;
         ShaderProgram* sphereShaderProgram = nullptr;
         DrawableObject* sphereObject = nullptr;
+
+        Model* plainModel = nullptr;
+        ShaderProgram* plainShaderProgram = nullptr;
+        DrawableObject* plainObject = nullptr;
 
         Model* treeModel = nullptr;
         ShaderProgram* treeShaderProgram = nullptr;
@@ -45,6 +51,10 @@ class Scene
 
         vector<vec4> treeInstances;
         vector<vec4> bushInstances;
+
+        Camera* camera1 = nullptr;
+        Camera* camera2 = nullptr;
+        Camera* activeCamera = nullptr;
 
         int currentScene = 1;
 

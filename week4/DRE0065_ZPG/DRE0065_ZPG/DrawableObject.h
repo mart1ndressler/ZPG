@@ -8,6 +8,7 @@
 #include "Model.h"
 #include "ShaderProgram.h"
 #include "TransformationComposite.h"
+#include "Camera.h"
 
 using namespace glm;
 
@@ -15,7 +16,8 @@ class DrawableObject
 {
     public:
         DrawableObject(Model* model, ShaderProgram* shaderprogram, int vertexCount, GLenum drawMode);
-        void setModelMatrix(const mat4& m) {modelMatrix = m;}
+
+        void render(Camera* camera, const mat4& modelMatrix);
         void draw();
 
     private:
@@ -23,6 +25,5 @@ class DrawableObject
         ShaderProgram* shaderprogram;
         int vertexCount;
         GLenum mode;
-        mat4 modelMatrix{1.0f};
 };
 #endif

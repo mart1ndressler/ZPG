@@ -1,4 +1,4 @@
-#include "Application.h"
+﻿#include "Application.h"
 
 Application::Application()
 {
@@ -64,13 +64,25 @@ void Application::handleInput()
 
 void Application::run()
 {
+    float lastFrame = 0.0f;
     while(!glfwWindowShouldClose(window))
     {
+        float currentFrame = (float)glfwGetTime();
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         glfwPollEvents();
         handleInput();
 
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        bool rightPressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS;
+
+        scene->updateCamera(window, deltaTime, xpos, ypos, rightPressed);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         scene->draw();
+
         glfwSwapBuffers(window);
     }
 }

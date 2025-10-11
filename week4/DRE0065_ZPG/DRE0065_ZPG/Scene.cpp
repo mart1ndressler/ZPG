@@ -2,38 +2,58 @@
 #include "sphere.h"
 #include "tree.h"
 #include "bushes.h"
+#include "plain.h"
 
 Scene::Scene()
 {
-	setupScene1();
+    camera1 = new Camera(vec3(0.0f, 0.0f, 1.5f), -90.0f, 0.0f, 800.0f / 600.0f);
+    camera2 = new Camera(vec3(0.0f, 3.0f, 7.0f), -90.0f, -20.0f, 800.0f / 600.0f);
+    activeCamera = camera1;
+
+    setupScene1();
     setupScene2();
-	setupScene3();
+    setupScene3();
 }
 
 Scene::~Scene()
 {
-	delete triangleObject;
-	delete triangleShaderProgram;
-	delete triangleModel;
+    Model* models[] = {triangleModel, sphereModel, plainModel, treeModel, bushModel};
+    ShaderProgram* shaders[] = {triangleShaderProgram, sphereShaderProgram, plainShaderProgram, treeShaderProgram, bushShaderProgram};
+    DrawableObject* objects[] = {triangleObject, sphereObject, plainObject, treeObject, bushObject};
 
-    delete sphereObject;
-    delete sphereShaderProgram;
-    delete sphereModel;
-
-	delete treeObject;
-	delete treeShaderProgram;
-	delete treeModel;
-
-	delete bushObject;
-	delete bushShaderProgram;
-	delete bushModel;
+    for(int i = 0; i < 5; i++)
+    {
+        delete objects[i];
+        delete shaders[i];
+        delete models[i];
+    }
 }
 
 void Scene::setScene(int id)
 {
-    if(currentScene == id) return;
+    bool isSameScene = (currentScene == id);
     currentScene = id;
-	fprintf(stderr, "Switching to scene %d\n", currentScene);
+
+    if(!isSameScene) fprintf(stderr, "Switching to scene %d\n", currentScene);
+    if(currentScene == 2)
+    {
+        activeCamera = camera1;
+        camera1->reset(vec3(0.0f, 0.0f, 1.5f), -90.0f, 0.0f);
+    }
+    else if(currentScene == 3)
+    {
+        activeCamera = camera2;
+        camera2->reset(vec3(0.0f, 3.0f, 7.0f), -90.0f, -20.0f);
+    }
+}
+
+void Scene::updateCamera(GLFWwindow* window, float deltaTime, double xpos, double ypos, bool rightPressed)
+{
+    if(currentScene == 2 || currentScene == 3)
+    {
+        activeCamera->processKeyboard(window, deltaTime);
+        activeCamera->processMouse(xpos, ypos, rightPressed);
+    }
 }
 
 void Scene::setupScene1()
@@ -57,86 +77,75 @@ void Scene::setupScene2()
     sphereModel->setupModel(sphere, sizeof(sphere), true);
     sphereShaderProgram = new ShaderProgram("vertex_shader.glsl", "triangle_fragment_shader.glsl");
     sphereObject = new DrawableObject(sphereModel, sphereShaderProgram, 2880, GL_TRIANGLES);
+
+	camera1->addObserver(sphereShaderProgram);
 }
 
 void Scene::setupScene3()
 {
+    plainModel = new Model();
+    plainModel->setupModel(plain, sizeof(plain), true);
+    plainShaderProgram = new ShaderProgram("vertex_shader.glsl", "plain_fragment_shader.glsl");
+    plainObject = new DrawableObject(plainModel, plainShaderProgram, 6, GL_TRIANGLES);
+
     treeModel = new Model();
     treeModel->setupModel(tree, sizeof(tree), true);
     treeShaderProgram = new ShaderProgram("vertex_shader.glsl", "tree_fragment_shader.glsl");
     treeObject = new DrawableObject(treeModel, treeShaderProgram, 92814, GL_TRIANGLES);
-
-    treeInstances =
-    {
-        {-0.75f, -0.55f, radians(-20.0f), 0.08f}, {-0.25f, -0.55f, radians(25.0f), 0.10f},
-        {0.25f, -0.55f, radians(-20.0f), 0.08f}, {0.75f, -0.55f, radians(25.0f), 0.10f},
-        {-0.60f, 0.15f, radians(25.0f), 0.10f}, {-0.10f,  0.15f, radians(-20.0f), 0.08f},
-        {0.40f, 0.15f, radians(25.0f), 0.10f}, {0.80f, 0.15f, radians(-20.0f), 0.08f},
-    };
 
     bushModel = new Model();
     bushModel->setupModel(bushes, sizeof(bushes), true);
     bushShaderProgram = new ShaderProgram("vertex_shader.glsl", "bush_fragment_shader.glsl");
     bushObject = new DrawableObject(bushModel, bushShaderProgram, 8730, GL_TRIANGLES);
 
-    bushInstances =
-    {
-        {-0.85f, -0.15f, radians(-10.0f), 0.22f}, {-0.45f, -0.15f, radians(15.0f), 0.24f},
-        {-0.05f, -0.15f, radians(8.0f), 0.20f}, {0.35f, -0.15f, radians(-12.0f), 0.26f},
-        {0.75f, -0.15f, radians(5.0f), 0.23f}, {-0.85f, 0.55f, radians(12.0f), 0.25f},
-        {-0.45f, 0.55f, radians(-15.0f), 0.22f}, {-0.05f, 0.55f, radians(10.0f), 0.24f},
-        {0.35f, 0.55f, radians(-8.0f), 0.21f}, {0.75f, 0.55f, radians(14.0f), 0.25f},
-        {-0.25f, 0.35f, radians(-6.0f), 0.23f}, {0.55f, -0.35f, radians(9.0f), 0.22f},
-    };
+	camera2->addObserver(plainShaderProgram);
+	camera2->addObserver(treeShaderProgram);
+	camera2->addObserver(bushShaderProgram);
 
+    srand(time(NULL));
+    for(int i = 0; i < 50; i++) treeInstances.push_back(vec4(((rand() % 200) / 100.0f) - 1.0f, ((rand() % 200) / 100.0f) - 1.0f, radians((float)(rand() % 360)), 0.07f + ((float)(rand() % 3) * 0.01f)));
+    for(int i = 0; i < 50; i++) bushInstances.push_back(vec4(((rand() % 200) / 100.0f) - 1.0f, ((rand() % 200) / 100.0f) - 1.0f, radians((float)(rand() % 360)), 0.18f + ((float)(rand() % 3) * 0.02f)));
 }
 
 void Scene::draw()
 {
     if(currentScene == 1)
     {
-        triangleShaderProgram->use();
-        vec2 center(0.25f, -0.40f);
         mat4 M(1.0f);
-
         TransformationComposite TC_triangle;
         TC_triangle.addComponent(new Rotation(0.5f * (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f)));
-        TC_triangle.addComponent(new Translation(vec3(-center.x, -center.y, 0.0f)));
+        TC_triangle.addComponent(new Translation(vec3(-0.25f, 0.40f, 0.0f)));
         TC_triangle.apply(M);
 
-		triangleObject->setModelMatrix(M);
+        triangleObject->render(activeCamera, M);
         triangleObject->draw();
     }
     else if(currentScene == 2)
     {
-        sphereShaderProgram->use();
-        for(int i = 0; i < 4; ++i)
+        vec3 positions[4] = {vec3(0.40f, 0.0f, 0.0f), vec3(-0.40f, 0.0f, 0.0f), vec3(0.0f, 0.40f, 0.0f), vec3(0.0f, -0.40f, 0.0f)};
+        for(int i = 0; i < 4; i++)
         {
-            vec3 pos(0.0f);
             mat4 M(1.0f);
-
-            if(i == 0) pos = vec3(0.40f, 0.0f, 0.0f);
-            else if(i == 1) pos = vec3(-0.40f, 0.0f, 0.0f);
-            else if(i == 2) pos = vec3(0.0f, 0.40f, 0.0f);
-            else pos = vec3(0.0f, -0.40f, 0.0f);
-
             TransformationComposite TC_sphere;
-            TC_sphere.addComponent(new Translation(pos));
+            TC_sphere.addComponent(new Translation(positions[i]));
             TC_sphere.addComponent(new Rotation(0.5f * (float)glfwGetTime(), vec3(0.0f, 1.0f, 0.0f)));
             TC_sphere.addComponent(new Scale(vec3(0.20f)));
             TC_sphere.apply(M);
 
-			sphereObject->setModelMatrix(M);
+            sphereObject->render(activeCamera, M);
             sphereObject->draw();
         }
     }
     else if(currentScene == 3)
     {
-        mat4 projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-        mat4 view = lookAt(vec3(0.0f, 3.0f, 6.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
-        mat4 VP = projection * view;
+        mat4 M(1.0f);
+        TransformationComposite TC_plain;
+        TC_plain.addComponent(new Scale(vec3(3.2f, 1.0f, 3.2f)));
+        TC_plain.apply(M);
 
-        treeShaderProgram->use();
+        plainObject->render(activeCamera, M);
+        plainObject->draw();
+
         for(auto& trees : treeInstances)
         {
             mat4 M(1.0f);
@@ -146,11 +155,10 @@ void Scene::draw()
             TC_tree.addComponent(new Scale(vec3(trees.w)));
             TC_tree.apply(M);
 
-            treeObject->setModelMatrix(VP * M);
+            treeObject->render(activeCamera, M);
             treeObject->draw();
         }
 
-        bushShaderProgram->use();
         for(auto& bushes : bushInstances)
         {
             mat4 M(1.0f);
@@ -158,10 +166,10 @@ void Scene::draw()
             TC_bush.addComponent(new Translation(vec3(bushes.x * 3.0f, 0.0f, -bushes.y * 3.0f)));
             TC_bush.addComponent(new Rotation(bushes.z, vec3(0, 1, 0)));
             TC_bush.addComponent(new Scale(vec3(bushes.w)));
-			TC_bush.apply(M);
+            TC_bush.apply(M);
 
-			bushObject->setModelMatrix(VP * M);
-			bushObject->draw();
+            bushObject->render(activeCamera, M);
+            bushObject->draw();
         }
     }
 }

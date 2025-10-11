@@ -9,10 +9,11 @@
 #include <cstdlib>
 
 #include "Shader.h"
+#include "Observer.h"
 
 using namespace glm;
 
-class ShaderProgram
+class ShaderProgram : public Observer
 {
     public:
         ShaderProgram(const char* vertexSrc, const char* fragmentSrc);
@@ -24,6 +25,7 @@ class ShaderProgram
         void set(const char* name, const vec3& vec) const;
 		void set(const char* name, const mat4& mat) const;
 
+        void updateViewProjection(const mat4& view, const mat4& projection) override {use(); set("viewMatrix", view); set("projectionMatrix", projection);}
     private:
         GLuint programID = 0;
         void checkLinking(GLuint program);

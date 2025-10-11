@@ -48,6 +48,9 @@
     <ClCompile Include="Translation.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -92,11 +95,24 @@
     <ClInclude Include="Translation.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="plain.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="vertex_shader.glsl" />
     <None Include="triangle_fragment_shader.glsl" />
     <None Include="tree_fragment_shader.glsl" />
     <None Include="bush_fragment_shader.glsl" />
+    <None Include="plain_fragment_shader.glsl" />
   </ItemGroup>
 </Project>

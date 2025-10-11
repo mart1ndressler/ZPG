@@ -1,7 +1,2 @@
-﻿  Application.cpp
-  Rotation.cpp
-  Scene.cpp
-  main.cpp
-  Generování kódu...
-LINK : warning LNK4098: Výchozí knihovna MSVCRT je v konfliktu s použitím jiných knihoven. Použijte /NODEFAULTLIB:library.
-  DRE0065_ZPG.vcxproj -> C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week3\DRE0065_ZPG\x64\Debug\DRE0065_ZPG.exe
+﻿  Camera.cpp
+  DRE0065_ZPG.vcxproj -> C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week4\DRE0065_ZPG\x64\Debug\DRE0065_ZPG.exe

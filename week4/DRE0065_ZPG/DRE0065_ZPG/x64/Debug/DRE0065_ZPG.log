@@ -1,2 +1,6 @@
-﻿  Camera.cpp
+﻿  Application.cpp
+  Scene.cpp
+C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week4\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(108,15): warning C4244: argument: time_t se převádí na unsigned int; může dojít ke ztrátě dat.
+  main.cpp
+  Generování kódu...
   DRE0065_ZPG.vcxproj -> C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week4\DRE0065_ZPG\x64\Debug\DRE0065_ZPG.exe

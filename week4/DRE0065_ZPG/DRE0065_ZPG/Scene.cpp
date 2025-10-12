@@ -18,15 +18,18 @@ Scene::Scene()
 Scene::~Scene()
 {
     Model* models[] = {triangleModel, sphereModel, plainModel, treeModel, bushModel};
-    ShaderProgram* shaders[] = {triangleShaderProgram, sphereShaderProgram, plainShaderProgram, treeShaderProgram, bushShaderProgram};
+    ShaderProgram* shaderPrograms[] = {triangleShaderProgram, sphereShaderProgram, plainShaderProgram, treeShaderProgram, bushShaderProgram};
     DrawableObject* objects[] = {triangleObject, sphereObject, plainObject, treeObject, bushObject};
 
     for(int i = 0; i < 5; i++)
     {
         delete objects[i];
-        delete shaders[i];
+        delete shaderPrograms[i];
         delete models[i];
     }
+
+	delete camera1;
+	delete camera2;
 }
 
 void Scene::setScene(int id)

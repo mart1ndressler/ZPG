@@ -38,7 +38,7 @@ class Subject
         void notify(const mat4& view, const mat4& projection)
         {
             fprintf(stderr, "[Observer] notify -> count=%zu\n", observers.size());
-            for(auto* o : observers) if(o) o->updateViewProjection(view, projection);
+            for(auto* observer : observers) if(observer) observer->updateViewProjection(view, projection);
         }
 
     private:

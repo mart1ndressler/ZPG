@@ -15,14 +15,14 @@ using namespace glm;
 class DrawableObject
 {
     public:
-        DrawableObject(Model* model, ShaderProgram* shaderprogram, int vertexCount, GLenum drawMode);
+        DrawableObject(Model* model, ShaderProgram* shaderProgram, int vertexCount, GLenum drawMode);
 
         void render(Camera* camera, const mat4& modelMatrix);
         void draw();
 
     private:
         Model* model;
-        ShaderProgram* shaderprogram;
+        ShaderProgram* shaderProgram;
         int vertexCount;
         GLenum mode;
 };

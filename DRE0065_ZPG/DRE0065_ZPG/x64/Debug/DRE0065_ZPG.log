@@ -1,8 +1,0 @@
-﻿  Scene.cpp
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(135,15): warning C4244: argument: time_t se převádí na unsigned int; může dojít ke ztrátě dat.
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(225,44): warning C4305: argument: zkrácení z: double na: T
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(225,44): warning C4305:         with
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(225,44): warning C4305:         [
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(225,44): warning C4305:             T=float
-C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\DRE0065_ZPG\Scene.cpp(225,44): warning C4305:         ]
-  DRE0065_ZPG.vcxproj -> C:\Users\Loren\OneDrive\Dokumenty\School\ZPG\2025\week5\DRE0065_ZPG\x64\Debug\DRE0065_ZPG.exe

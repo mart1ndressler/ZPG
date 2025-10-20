@@ -59,6 +59,13 @@ void Scene::updateCamera(GLFWwindow* window, float deltaTime, double xpos, doubl
     }
 }
 
+void Scene::applyLight(ShaderProgram* p)
+{
+    if(!p || !pointLight) return;
+    p->use();
+    p->set("lightPosition", pointLight->getPosition());
+}
+
 void Scene::setupScene1()
 {
     float triangle[] =
@@ -101,8 +108,6 @@ void Scene::setupScene2()
     camera1->addObserver(blinnShaderProgram);
 
     if(!pointLight) pointLight = new Light(vec3(0.0f, 0.0f, 0.0f));
-    pointLight->attach(constantShaderProgram); pointLight->attach(lambertShaderProgram); pointLight->attach(phongShaderProgram); pointLight->attach(blinnShaderProgram);
-    pointLight->setPosition(vec3(0.0f));
 }
 
 void Scene::setupScene3()
@@ -150,8 +155,6 @@ void Scene::setupScene4()
     camera2->addObserver(solarShaderProgram);
 
     if(!pointLight) pointLight = new Light(vec3(0.0f, 0.0f, 0.0f));
-    pointLight->attach(solarShaderProgram);
-    pointLight->setPosition(vec3(0.0f));
 }
 
 void Scene::draw()
@@ -168,7 +171,12 @@ void Scene::draw()
     }
     else if(currentScene == 2)
     {
-        DrawableObject* sphereObjects[4] = {constantSphereObject, lambertSphereObject, phongSphereObject, blinnSphereObject};
+        applyLight(constantShaderProgram);
+        applyLight(lambertShaderProgram);
+        applyLight(phongShaderProgram);
+        applyLight(blinnShaderProgram);
+
+		DrawableObject* sphereObjects[4] = {constantSphereObject, lambertSphereObject, phongSphereObject, blinnSphereObject};
         vec3 positions[4] = {vec3(0.40f, 0.0f, 0.0f), vec3(-0.40f, 0.0f, 0.0f), vec3(0.0f, 0.40f, 0.0f), vec3(0.0f, -0.40f, 0.0f)};
 
         for(int i = 0; i < 4; ++i)
@@ -217,6 +225,7 @@ void Scene::draw()
     else if(currentScene == 4)
     {
         pointLight->setPosition(vec3(0.0f));
+		applyLight(solarShaderProgram);
 
         vec3 earthPos = vec3(2.0f * cos(0.50f * (float)glfwGetTime()), 2.0f * sin(0.50f * (float)glfwGetTime()), 0.0f);
         vec3 moonPos = vec3(0.60f * cos(1.50f * (float)glfwGetTime()), 0.60f * sin(1.50f * (float)glfwGetTime()), 0.0f);
@@ -243,4 +252,5 @@ void Scene::draw()
             objects[i]->draw(M);
         }
     }
+
 }

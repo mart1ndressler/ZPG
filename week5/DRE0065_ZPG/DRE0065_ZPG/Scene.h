@@ -76,5 +76,7 @@ class Scene
         void setupScene2();
         void setupScene3();
         void setupScene4();
+        void applyLight(ShaderProgram* p);
 };
+
 #endif

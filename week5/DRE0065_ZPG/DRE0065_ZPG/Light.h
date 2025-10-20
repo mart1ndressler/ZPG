@@ -3,27 +3,18 @@
 #define LIGHT_H
 
 #include <glm/glm.hpp>
-#include <vector>
-#include <algorithm>
-
-#include "ShaderProgram.h"
+#include "Subject.h"
 
 using namespace glm;
-using namespace std;
 
-class Light
+class Light : public Subject
 {
-    public:
-        Light(const vec3& position);
-        vec3 getPosition() const;
-        void setPosition(const vec3& p);
-        void attach(ShaderProgram* program);
-        void detach(ShaderProgram* program);
-        void pushToPrograms() const;
+public:
+    Light(const vec3& position);
+    vec3 getPosition() const;
+    void setPosition(const vec3& p);
 
-    private:
-        vec3 position;
-        vector<ShaderProgram*> programs;
-        void pushTo(ShaderProgram* program) const;
+private:
+    vec3 position;
 };
 #endif

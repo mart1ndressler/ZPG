@@ -1,0 +1,5 @@
+Světlušky vytvářím programově: při startu jim náhodně vygeneruji pozici v boxu X/Z (−1.6..1.6), Y (0.40..1.20) a počáteční směr.
+Každý snímek přidám malý jitter(malé náhodné vychýlení rychlosti/směru), rychlost držím v rozmezí 0.6–2.5 a při nárazu na hranu se odrazí.
+V renderu jsou to bodová světla s teplou difuzní barvou vec3(1.0, 0.95, 0.60) bez spekulární složky, aby nevznikaly tvrdé odlesky.
+Používám útlum (1.0, 2.0, 4.0), takže dosvit je krátký a světla působí jen v okolí.
+Fragment shader koule má základní barvu bílá (vec4(1,1,1,1)), takže difuzní složka světla ji obarví do tepla (nažloutle).

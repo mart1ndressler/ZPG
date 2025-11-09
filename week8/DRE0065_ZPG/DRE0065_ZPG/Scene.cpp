@@ -60,7 +60,6 @@ void Scene::setScene(int id)
     }
 
     if(camera1) camera1->setFov(60.0f);
-    if(camera2) camera2->setFov(60.0f);
 }
 
 int Scene::getScene()

@@ -1,0 +1,5 @@
+Projektivní prostor se používá, protože s homogenními souřadnicemi zvládneme posun, rotaci a změnu měřítka jednotně pomocí matic.
+Díky tomu se objekty chovají přirozeně – blízké vypadají větší a vzdálené menší.
+Umíme v něm popsat i body v nekonečnu, takže se v obraze mohou rovnoběžné hrany opticky sbíhat.
+Používáme jednoduchý vztah: pozice = P(projekční) · V(pohledová) · M(modelová) · (x, y, z, 1) (homogenní bod).
+Výhoda je, že všechny transformace zapisujeme a kombinujeme stejným maticovým násobením, takže je lze snadno skládat a celý postup je přehledný.

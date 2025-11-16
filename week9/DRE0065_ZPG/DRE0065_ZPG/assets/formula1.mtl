@@ -1,0 +1,32 @@
+# Blender 4.4.0 MTL File: 'None'
+# www.blender.org
+
+newmtl Fillers
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+
+newmtl Mat
+Ns 50.000011
+Ka 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:/Users/nem03/Documents/GitHub/zpg2025/ZPG/Assets/formula 1/C:/Users/Dil Afroze/Desktop/formula 1/Substance SpecGloss/Right ones/formula1_DefaultMaterial_Diffuse.png
+map_Ks C:/Users/nem03/Documents/GitHub/zpg2025/ZPG/Assets/formula 1/C:/Users/Dil Afroze/Desktop/formula 1/Substance SpecGloss/Right ones/formula1_DefaultMaterial_Specular.png
+
+newmtl Mirrors
+Ns 100.000015
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3

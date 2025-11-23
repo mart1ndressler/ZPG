@@ -1,0 +1,4 @@
+V páté scéně v metodě setupScene5 vytvářím model desky(plain) a model svého loginu a zároveň připravím 6×6 mřížku pozic, ze které náhodně vyberu startovní políčka pro tři Shreky.
+V metodě draw pro scénu 5 pak v každém snímku hlídám čas a každé 3 sekundy přesunu každého Shreka na novou náhodnou pozici tak, aby nikdy nestáli dva na stejném místě.
+Stejná metoda také počítá pohyb loginu – ten se plynule pohybuje po lomené čáře mezi třemi body, přičemž aktuální pozici počítám podle času pomocí jednoduché lineární interpolace.
+Kliknutí myší zpracovává metoda handleClick, která zjistí, jestli hráč klikl na model Shreka, přepočítá pozici kliknutí do 3D, přičte skóre a daného Shreka okamžitě přesune na další náhodné místo.

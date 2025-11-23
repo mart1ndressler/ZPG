@@ -1,0 +1,5 @@
+V aplikaci používám homogenní souřadnice, takže místo trojice (x, y, z) počítám s vektorem (x, y, z, w) a na konci v vertex shaderu dělím: fragPos = worldPos.xyz / worldPos.w;.
+V módu 1 nastavím w = 500 a posílám do shaderu vec4(vp * w, w), což je v mojí scéně z hlediska výsledné projekce ekvivalentní w = 1, takže obraz na obrazovce vypadá stejně.
+Dál mám vlastní transformační matici customMatrix, která je jednotková, jen prvek [3][3] je 20, a tu v módu 2 ještě navíc násobím s worldPos, takže změním hodnotu worldPos.w a po dělení worldPos.w se na scéně objekty jeví menší/dál.
+Klávesou H přepínám tři režimy: normální w = 1 (mód 0), w = 500 (mód 1) a w = 500 + customMatrix (mód 2), takže můžu chování homogenní souřadnice přímo vizuálně testovat.
+Že je to správně, poznám tak, že při přepínání módů se tvary modelů nedeformují ani nelámou, mění se jen způsob zobrazení – měřítko/stažení celé scény.

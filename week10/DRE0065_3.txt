@@ -1,0 +1,6 @@
+V mojí implementaci je Slunce v bodě [0,0,0] a ve shaderu se chová jako bodový zdroj světla s útlumem, který má navíc emisní složku, takže samo svítí.
+Planety jsem rozložil v pořadí Merkur, Venuše, Země, Mars, Jupiter, Saturn, Uran a Neptun.
+Planety obíhají kolem Slunce po kružnicích, takže jejich pozici počítám pomocí funkcí cos/sin s různým poloměrem a různým násobkem času pro rychlost, takže každá planeta má jinou rychlost a také jinou vzdálenost od Slunce.
+Každá planeta se ještě zvlášť otáčí kolem vlastní osy(osa y) podle času, takže se točí jako koule a ne jen létá po oběžné dráze.
+Poté jsem si zjistil, které planety mají měsíce, a přiřadil jsem je: Země – 1 měsíc, Mars – 2 měsíce, Jupiter – 4, Saturn – 7, Uran – 5 a Neptun – 3 měsíce (u některých nejde o přesný počet, bral jsem jen ty hlavní).
+U všech těchto měsíců počítám oběh kolem dané planety podobně jako u planet kolem Slunce – vezmu pozici planety, přidám k ní malý kruhový pohyb pomocí cos/sin a jejich osvětlení opět počítám Phongovým modelem podle směru od Slunce, takže osvětlená je vždy jen strana natočená ke světlu.

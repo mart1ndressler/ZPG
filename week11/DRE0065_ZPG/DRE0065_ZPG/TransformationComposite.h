@@ -1,0 +1,17 @@
+#pragma once
+#include <vector>
+#include "TransformationComponent.h"
+
+using namespace glm;
+using namespace std;
+
+class TransformationComposite : public TransformationComponent
+{
+    public:
+        void addComponent(TransformationComponent* component);
+        void apply(mat4& matrix) const override;
+        ~TransformationComposite();
+
+    private:
+        vector<TransformationComponent*> components;
+};
